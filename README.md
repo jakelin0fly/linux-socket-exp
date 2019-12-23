@@ -24,8 +24,8 @@ client(客户端)通过adaptor(分配器)向server(服务器)发送请求，serv
 
   2. 直接在终端Ctrl+C不能直接完全杀死对应端口所有进程（存疑，server 9001执行Ctrl+C后进程也没了）
 
-     ![server-1-Ctrl+C.png](.\picture\server-1-Ctrl+C.png)
+     ![server-1-Ctrl+C.png](./picture/server-1-Ctrl+C.png)
 
   3. 通过ps -aux查看进程，kill所有server 9001进程，adaptor正常运行
 
-     ![kill-server-1](.\picture\kill-server-1.png)
+     ![kill-server-1](./picture/kill-server-1.png)
