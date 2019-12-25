@@ -10,7 +10,47 @@
 
 client(客户端)通过adaptor(分配器)向server(服务器)发送请求，server发生异常终止后，adaptor检查到超时将任务转发给新的服务器。
 
+## 运行命令
 
+-----------------
+
+1. Client、Adaptor、Server对应目录内make编译
+
+2. 运行Server
+
+   ```shell
+   #Terminal 1
+   ./server 9001
+   #Teiminal 2
+   ./server 9002
+   ```
+
+   
+
+3. 运行Adaptor
+
+   ```shell
+   ##服务器信息必须保存在Adaptor目录下的config.txt文件中，可自行定义，格式如下：
+       127.0.0.1,9001
+       127.0.0.1,9002
+   ##adaptor监听端口9000
+   ./adaptor
+   ```
+
+   
+
+4. 运行Client
+
+   ```shell
+   #客户端运行需要给定Adaptor 端口 ip
+   ./client 9000 127.0.0.1
+   ```
+
+   
+
+5. 数据请求为客户端输入两整数
+
+6. 异常终止Server使用kill命令
 
 ## 记录
 
