@@ -12,9 +12,9 @@
 #define MAX_CHECK_NUM				10
 
 //sleep
-#define ADAPTOR_THREAD_SLEEP_TIME	2
+#define ADAPTOR_THREAD_SLEEP_TIME	1
 #define SERVER_WAIT_SLEEP					3
-#define SERVER_THREAD_TIME				5
+#define SERVER_THREAD_TIME				3
 
 typedef struct ServerStruct
 {

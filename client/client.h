@@ -2,11 +2,7 @@
 #define ClIENT_H
 // #define	MAX_BUFFER	200
 #include <netinet/in.h>	//IPv4套接口地址结构
-// #include <iostream>
-typedef struct socketStruct
-{
-	int socket;
-}socketStruct;
+
 class Client
 {
 public:
@@ -17,7 +13,7 @@ public:
 	bool clientSendRequest();
 	static void* clientRecieveResponse(void *);	//线程函数 接收服务器返回消息
 	// static void* threadClient(void *obj);
-	void work();	
+	void work();
 
 private:
 	bool initSocket();	//初始化 socket

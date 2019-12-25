@@ -101,17 +101,8 @@ void *Adaptor::checkServerThread(void *pvoid_this){
 	Adaptor *pthis = static_cast<Adaptor *>(pvoid_this);
 	int server_socket = pthis->getServerSocket();
 	for(;;){
-		//wait server response
-		// if(0 < recv(server_socket, pthis->static_buf, LISTEN_QUEUE_MAX_LENGTH, 0)){
-		//
-		cout << "thread check run" <<endl;
 		{
 			pthread_testcancel();
-			// cout << "recieve ";
-			// cout << recv(server_socket, pthis->static_buf, LISTEN_QUEUE_MAX_LENGTH, 0)
-			// <<": " << pthis->static_buf << endl;
-			// if(0 != strcmp(ACK, pthis->static_buf))
-			// 	return NULL;
 			if(0 < recv(server_socket, pthis->static_buf, LISTEN_QUEUE_MAX_LENGTH, MSG_DONTWAIT)){
 				pthis->static_send_num = 0;
 			}
@@ -127,14 +118,9 @@ void *Adaptor::sendToServerThread(void *pvoid_this){
 	for(;;){
 		//send to server
 		sleep(ADAPTOR_THREAD_SLEEP_TIME);
-		// cout << "thread send run" <<endl;
-		// if((pthis->static_send_num >= MAX_CHECK_NUM) || (0 != strcmp(ACK, pthis->static_buf))){
-		// 	return NULL;
-		// }
 		pthread_testcancel();
-		// send(server_socket, ACK, LISTEN_QUEUE_MAX_LENGTH, 0);
 		pthis->static_send_num += 1;
-		cout << "send num: " << pthis->static_send_num << endl;
+		// cout << "send num: " << pthis->static_send_num << endl;
 		if((pthis->static_send_num >= MAX_CHECK_NUM) || (0 != strcmp(ACK, pthis->static_buf))){
 			return NULL;
 		}
@@ -287,12 +273,13 @@ bool Adaptor::initConnectServer(const ServerStruct &server) {
 	// 		return false;
 	// 	}
 	// }
-    cout << "connect success! O_NONBLOCK " << m_connected_server_socket << endl;
+    cout << "connect success! O_NONBLOCK "
+		<< server.str_ip <<": "<<server.port << endl;
     return true;
 }
 
 bool Adaptor::connectServerByIndex(int &server_index){
-	std::cout << "server size : " << m_servers.size() << '\n';
+	// std::cout << "server size : " << m_servers.size() << '\n';
 	for (; server_index < m_servers.size(); ++server_index)
 	{	//response client connect server success
 		if(true == initConnectServer(m_servers[server_index])){
@@ -337,7 +324,7 @@ bool Adaptor::forwardServer(char *buf){
 		if(0 != strcmp(ACK, this->static_buf)){
 			strcpy(buf, this->static_buf);
 			// strcpy(this->static_buf, ACK);
-			cout << "OK " << buf << endl;
+			cout << "ans = " << buf << endl;
 			break;
 		}
 		// cout <<"this->static_send_num =" <<  this->static_send_num << endl;
@@ -358,9 +345,6 @@ bool Adaptor::forwardServer(char *buf){
 			closeClientSocket();
 			return false;
 		}
-		// cout << "send to server : " << sendToServer(this->static_buf)
-		// << "signal_send = :" << this->static_send_num <<endl;
-		// signal_send += 1;
 		sleep(2);	//sleep
 	} //end wait server response
 	// strcpy(this->static_buf, ACK);

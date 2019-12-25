@@ -72,25 +72,11 @@ void Server::response(){
 	pthread_create(&my_response_thread, NULL, &Server::responseThread, pvoid_socket);
 	for(;;){
 		// char buf[LISTEN_QUEUE_MAX_LENGTH];
-
 		//接收请求数据报，阻塞等待
-		// int n = 0;
-		// while(true){
-		// 	if(0 < ( n = recv(m_connected_socket, buf, LISTEN_QUEUE_MAX_LENGTH, 0))){
-		// 		break;
-		// 	}
-		// 	cout << "wait ";
-		// 	sleep(1);
-		// }
 		if(0 < recv(m_connected_socket, buf, LISTEN_QUEUE_MAX_LENGTH, 0)){
 			cout << buf << endl;	//数据报信息
 			//验证报文 验证服务器是否在线
 			if(0 == strcmp(ACK, buf)){	//check message
-				// if(-1 == send(m_connected_socket, ACK, LISTEN_QUEUE_MAX_LENGTH, 0)){
-				// 	cout << "close m_connected_socket: send ack error" <<endl;
-				// 	closeConnectedSocket();
-				// 	break;
-				// }
 				continue;
 			}
 			//进程等待休眠
@@ -112,7 +98,7 @@ void Server::response(){
 			cout << "client close!" << endl;
 			break;
 		}
-		sleep(2);
+		// sleep(2);
 	}
 
 }
